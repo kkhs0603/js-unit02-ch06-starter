@@ -84,18 +84,11 @@ const onSubmit = async () => {
       });
   } else {
     /* エラーメッセージを出力 */
-    if (!results[0].success) {
-      addErrorMessage("name", results[0].message);
-    }
-    if (!results[1].success) {
-      addErrorMessage("username", results[1].message);
-    }
-    if (!results[2].success) {
-      addErrorMessage("email", results[2].message);
-    }
-    if (!results[3].success) {
-      addErrorMessage("password", results[3].message);
-    }
+    results.forEach(function(result) {
+      if(!result.success){
+        addErrorMessage(result.type, result.message);
+      }
+    })
   }
 }
 
