@@ -68,13 +68,13 @@ const signup = (params) => {
 const onSubmit = async () => {
   await removeErrors()
   const params = {
-    email: 'メールアドレスの値',
-    password: 'パスワードの値',
-    username: 'ユーザー名の値',
-    name: '名前の値'
-  }
+    email: document.getElementById('email').value,
+    password: document.getElementById('password').value,
+    username: document.getElementById('username').value,
+    name: document.getElementById('name').value
+  };
   const results = await validate(params);
-  if (true /* バリデーション成功時 */) {
+  if (results[0].success && results[1].success && results[2].success && results[3].success) {
     signup(params)
       .then((json) => {
         alert(json.message);
@@ -84,6 +84,18 @@ const onSubmit = async () => {
       });
   } else {
     /* エラーメッセージを出力 */
+    if (!results[0].success) {
+      addErrorMessage("name", results[0].message);
+    }
+    if (!results[1].success) {
+      addErrorMessage("username", results[1].message);
+    }
+    if (!results[2].success) {
+      addErrorMessage("email", results[2].message);
+    }
+    if (!results[3].success) {
+      addErrorMessage("password", results[3].message);
+    }
   }
 }
 

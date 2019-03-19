@@ -20,6 +20,16 @@ export default class extends BaseValidator {
       名前は必ず一つのスペースを含みます。
       名前には半角英数字のみが利用可能です。
     */
+    const re = /^([a-zA-Z]+)\s([a-zA-Z]$)/;
+    const match = re.test(this.val);
+    if (match) {
+      return Promise.resolve();
+    } else {
+      return Promise.reject({
+        success: false,
+        message: `${this.type}のフォーマットが異なります。`
+      });
+    }
   }
 
 }
