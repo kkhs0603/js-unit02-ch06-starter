@@ -22,13 +22,25 @@ export default class extends BaseValidator {
     */
     const re = /^([a-zA-Z]+)\s(([a-zA-Z]+)$)/;
     const match = re.test(this.val);
+    const capitals = /^(?=.*[a-zA-Z])(?!.*[^a-zA-Z]).*$/;;
+    const matchCapitals = capitals.test(this.val);
     if (match) {
       return Promise.resolve();
     } else {
-      return Promise.reject({
-        success: false,
-        message: `${this.type}のフォーマットが異なります。`
-      });
+      if (matchCapitals) {
+        return Promise.reject({
+          success: false,
+          type: this.type,
+          message: `姓と名の間に半角スペースを含みましょう。`
+        });
+      } else {
+        return Promise.reject({
+          success: false,
+          type: this.type,
+          message: `半角英数字のみ使用してください。`
+        });
+      }
+      
     }
   }
 

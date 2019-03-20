@@ -85,7 +85,7 @@ const onSubmit = async () => {
   } else {
     /* エラーメッセージを出力 */
     results.forEach(function(result) {
-      if(!result.success){
+      if (!result.success) {
         addErrorMessage(result.type, result.message);
       }
     })

@@ -26,7 +26,8 @@ export default class extends BaseValidator {
     } else {
       return Promise.reject({
         success: false,
-        message: `${this.type}のフォーマットが異なります。`
+        type: this.type,
+        message: `使用できる文字は半角英数字と記号 @ _ . - のみです。`
       });
     }
   }

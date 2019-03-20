@@ -45,10 +45,27 @@ export default class extends BaseValidator {
     if (match && matchCapitals && matchSymbols) {
       return Promise.resolve();
     } else {
-      return Promise.reject({
-        success: false,
-        message: `${this.type}のフォーマットが異なります。`
-      });
+      if (!match) {
+        return Promise.reject({
+          success: false,
+          type: this.type,
+          message: '使用できる文字は半角英数字と記号 @ _ . - のみです。'
+        });
+      }
+      if (!matchCapitals) {
+        return Promise.reject({
+          success: false,
+          type: this.type,
+          message: '大文字の半角英数字を使用してください。'
+        });
+      }
+      if (!matchSymbols) {
+        return Promise.reject({
+          success: false,
+          type: this.type,
+          message: '記号 @ _ . - を使用してください。'
+        });
+      }
     }
   }
 }
